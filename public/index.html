@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>backbone.js Skeleton App</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/buttons.css" />
+    <link rel="stylesheet" href="assets/css/dashicons.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+
+    <!-- JS -->
+    <script src="assets/js/vendor/jquery.js"></script>
+    <script src="assets/js/vendor/underscore.min.js"></script>
+    <script src="assets/js/vendor/backbone.js"></script>
+    <script src="assets/js/client.js"></script>
+</head>
+<body class="wp-core-ui">
+    <div class="mwn-migration-tool">
+        <h2 class="mt-title">
+            <span class="dashicons"></span>
+            <span class="mt-status-title"></span>
+        </h2>
+
+        <p class="mt-status-message">
+            <!-- status message goes here -->
+        </p>
+
+        <div class="mt-content">
+            <!-- content goes here -->
+        </div>
+
+        <div class="mt-actions">
+            <!-- actions elements go here -->
+        </div>
+
+        <div class="mt-help">
+            <p>If something goes wrong <a href="#" class="button">Send error report</a></p>
+        </div>
+    </div>
+
+    <!-- Actions template -->
+    <script id="tmpl-actions" type="text/html">
+        <% _.each( actions, function( action, key ) { %>
+            <% if ('note' === key) { %>
+                <div class="mt-action-note"><p><%= action %></p></div>
+            <% } %>
+
+            <% if ('minor' === key) { %>
+                <div class="mt-minor-actions"><button class="button button-hero"><%= action %></button></div>
+            <% } %>
+
+            <% if ('major' === key) { %>
+                <div class="mt-major-action"><button class="button button-primary button-hero"><%= action %></button></div>
+            <% } %>
+        <% }); %>
+        <div class="clear"></div>
+    </script>
+
+    <!-- Post duplications template -->
+    <script id="tmpl-duplicate-posts" type="text/html">
+        <p class="mt-panel-info"><span class="dashicons"></span>Please <strong>select a redirect destination</strong> or modify this post and re-check.</p>
+        <fieldset>
+        <ul class="mt-radio-option-list">
+            <% _.each(posts, function(post, index) { %>
+                <li class="mt-article">
+                    <div class="mt-radio-button"><input type="radio" name="mt-redirect-option" id="mt-redirect-url-<%= index %>" value="url"></div>
+                    <label class="mt-radio-label" for="mt-redirect-url-<%= index %>">
+                        <span class="dashicons"></span>
+                        <span class="mt-similar-score"><i style="width: <% print(post.get('rawscore') * 100); %>%;"></i></span>
+                        <span class="mt-duplicate-title"><%= post.get('title') %></span>
+                        <span class="mt-duplicate-link"><a href="http://localhost:3000/<%= post.get('path') %>" target="_blank">Post link</a></span>
+                        <span class="mt-view"><a class="button" href="http://localhost:3000/<%= post.get('path') %>" target="_blank">View post</a></span>
+                    </label><div class="clear"></div>
+                </li>
+            <% }) %>
+
+            <!-- Category -->
+            <li class="mt-category">
+                <div class="mt-radio-button"><input type="radio" name="mt-redirect-option" id="mt-redirect-cat" value="url"></div>
+                <label class="mt-radio-label" for="mt-redirect-cat">
+                    <span class="dashicons"></span>
+                    <span class="mt-duplicate-title">Category Index</span>
+                    <span class="mt-duplicate-link">
+                        <select name="mt-redirect-cat-value" id="mt-redirect-cat-value"><option>News</option><option>Entertainment</option><option>Lifestyle</option> <option>Parenting</option><option>Beauty &amp; Style</option><option>Health</option><option>Relationships</option><option>Video</option></select>
+                    </span></label><div class="clear"></div>
+            </li>
+
+            <!-- Home option -->
+            <li class="mt-home">
+                <div class="mt-radio-button"><input type="radio" name="mt-redirect-option" id="mt-redirect-home" value="url"></div>
+                <label class="mt-radio-label" for="mt-redirect-home">
+                    <span class="dashicons"></span>
+                    <span class="mt-duplicate-title">Homepage</span>
+                    <span class="mt-duplicate-link">localhost:3000</span>
+                </label><div class="clear"></div>
+            </li>
+        </ul>
+        </fieldset>
+    </script>
+
+    <script type="application/javascript">
+        jQuery(document).ready(function() {
+            newapp.start();
+            //MWNMigration.init(' . $status . ');
+        });
+    </script>
+
+    <!-- WordPress form values -->
+    <input type="hidden" id="post_ID" name='post_ID' value="1" />
+    <input type="hidden" id="_wpnonce" name="_wpnonce" value="faf31e61df" />
+</body>
+</html>
