@@ -7,9 +7,7 @@ Loading screen -> Redirect/Migrate screen -> Success screen
 
 Assuming that each post has 2 states - Migrate or Redirect, we send an AJAX request to the server to get the post status and then render a template, using backbone.js
 
-For the testing purposes, a server responds with a different data each page load.
-
-By hitting "Re-check" button you send another call to the server.
+For the testing purposes, a server responds with a different data each page load, so just refresh the page a couple of times or hit "Re-Check button".
 
 When you hit "Confirm", a success view will be displayed.
 
